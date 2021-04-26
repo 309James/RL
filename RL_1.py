@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 class KB_Game:
     def __init__(self, *args, **kwargs):
         self.q = np.array([0.0, 0.0, 0.0])

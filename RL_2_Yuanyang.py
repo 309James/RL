@@ -14,6 +14,7 @@ class YuanYangEnv:
         self.actions = ['e', 's', 'w', 'n']
         self.gamma = 0.8
         self.value = np.zeros((10, 10))
+        self.path = []
         # 渲染属性
         self.viewer = None
         self.FPSCLOCK = pygame.time.Clock()
@@ -66,7 +67,7 @@ class YuanYangEnv:
         j = position[1] / 90
         return int(i + 10 * j)
 
-    def tansform(self, state, action):
+    def transform(self, state, action):
         current_pos = self.state_to_position(state)
         next_pos = [0, 0]
         flag_collide = 0
@@ -134,6 +135,13 @@ class YuanYangEnv:
             for j in range(10):
                 surface = self.font.render(str(round(float(self.value[i, j]), 3)), True, (0, 0, 0))
                 self.viewer.blit(surface, (120 * i + 5, 90 * j + 70))
+        # 画路径点
+        for i in range(len(self.path)):
+            rec_position = self.state_to_position(self.path[i])
+            pygame.draw.rect(self.viewer, [255, 0, 0],
+                             [rec_position[0], rec_position[1], 120, 90], 3)
+            surface = self.font.render(str(i), True, (255, 0, 0))
+            self.viewer.blit(surface, (rec_position[0] + 5, rec_position[1] + 5))
 
         pygame.display.update()
         self.gameover()
