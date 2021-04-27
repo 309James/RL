@@ -12,7 +12,8 @@ class YuanYangEnv:
         for i in range(0, 100):
             self.states.append(i)
         self.actions = ['e', 's', 'w', 'n']
-        self.gamma = 0.8
+        self.gamma = 0.95
+        self.action_value=np.zeros((100, 4))
         self.value = np.zeros((10, 10))
         self.path = []
         # 渲染属性
@@ -44,7 +45,6 @@ class YuanYangEnv:
         self.bird_female_position = [1080, 0]
 
     def reset(self):
-        global state
         flag1 = 1
         flag2 = 1
         while flag1 or flag2 == 1:
@@ -137,7 +137,7 @@ class YuanYangEnv:
             for j in range(10):
                 surface = self.font.render(str(round(float(self.value[i, j]), 3)), True, (0, 0, 0))
                 self.viewer.blit(surface, (120 * i + 5, 90 * j + 70))
-        # 画路径点
+# 画路径点
         for i in range(len(self.path)):
             rec_position = self.state_to_position(self.path[i])
             pygame.draw.rect(self.viewer, [255, 0, 0],
@@ -149,7 +149,6 @@ class YuanYangEnv:
         self.gameover()
         self.FPSCLOCK.tick(30)
 
-    # 碰撞检测函数(怀疑bug，碰撞逻辑判断为什么要用or，不是and)
     def collide(self, state_position):
         flag = 1
         flag1 = 1

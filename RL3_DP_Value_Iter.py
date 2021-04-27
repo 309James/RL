@@ -36,7 +36,7 @@ class DP_Value_Iter:
                 s, r, t = yuanyang.transform(state, a1)
                 # 策略评估
                 v1 = r + self.gamma * self.v[s]
-                # 策略改善
+                # 策略改善-策略迭代改善之前值函数收敛，值迭代不需要值函数收敛
                 for action in self.actions:
                     s, r, t = yuanyang.transform(state, action)
                     v2 = r + self.gamma * self.v[s]
