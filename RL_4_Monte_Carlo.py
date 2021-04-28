@@ -52,7 +52,7 @@ class MC_RL:
                 a_num = self.find_anum(a)
                 # 往回走不合理，因此给予负数回报
                 if s_next in s_sample:
-                    r = -2
+                    r = -10
                 s_sample.append(s)
                 a_sample.append(a_num)
                 r_sample.append(r)
@@ -140,7 +140,7 @@ class MC_RL:
 if __name__ == '__main__':
     yuanyang = YuanYangEnv()
     brain = MC_RL(yuanyang)
-    qvalue1 = brain.mc_learning_on_policy(num_iter=10000,epsilon=0.15)
+    qvalue1 = brain.mc_learning_on_policy(num_iter=5000,epsilon=0.7)
     yuanyang.action_value = qvalue1
     flag = 1
     s = 0

@@ -78,9 +78,9 @@ class YuanYangEnv:
         #     return state, 0, True
         #
         if flag_collide==1:
-            return state, -10, True
+            return state, -20, True
         if flag_find==1:
-            return state,10,True
+            return state,500,True
 
         if action == 'e':
             next_pos[0] = current_pos[0] + 120
@@ -97,11 +97,11 @@ class YuanYangEnv:
         flag_collide = self.collide(next_pos)
 
         if flag_collide == 1:
-            return self.postion_to_state(current_pos), -10, True
+            return self.postion_to_state(current_pos), -20, True
         flag_find = self.find(next_pos)
         if flag_find == 1:
-            return self.postion_to_state(next_pos), 10, True
-        return self.postion_to_state(next_pos), -2, False
+            return self.postion_to_state(next_pos), 500, True
+        return self.postion_to_state(next_pos), -1, False
 
     def gameover(self):
         for event in pygame.event.get():
